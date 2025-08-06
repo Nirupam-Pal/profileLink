@@ -10,6 +10,40 @@ content-Type: application/json
 
 ###
 
+POST http://localhost:9080/register HTTP/1.1
+content-Type: application/json
+
+{
+  "name": "Anupam Pal",
+  "email": "anupam15@gmail.com",
+  "password": "anupam123",
+  "username": "anupam15"
+}
+
+###
+POST http://localhost:9080/register HTTP/1.1
+content-Type: application/json
+
+{
+  "name": "Ajapa Bhowmik",
+  "email": "ajapa@gmail.com",
+  "password": "ajapa123",
+  "username": "ajapa5"
+}
+
+###
+POST http://localhost:9080/register HTTP/1.1
+content-Type: application/json
+
+{
+  "name": "Sourik Pal",
+  "email": "sourik2@gmail.com",
+  "password": "sourik123",
+  "username": "sourik2"
+}
+
+###
+
 POST http://localhost:9080/login HTTP/1.1
 content-Type: application/json
 
@@ -20,7 +54,7 @@ content-Type: application/json
 
 ###
 
-POST http://localhost:9080/get_user_and_profile HTTP/1.1
+GET http://localhost:9080/get_user_and_profile HTTP/1.1
 content-Type: application/json
 
 {
@@ -50,3 +84,6 @@ content-Type: application/json
     }
   ]
 }
+
+###
+GET http://localhost:9080/user/get_all_users HTTP/1.1
