@@ -28,6 +28,8 @@ export const register = async (req, res) => {
 
     const profile = new Profile({ userId: newUser._id });
 
+    await profile.save()
+
     return res.json({ message: "New User created" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -62,6 +64,7 @@ export const login = async (req, res) => {
   }
 };
 
+//use multer to upload or update profile picture
 export const uploadProfilePicture = async (req, res) => {
   const { token } = req.body;
 
@@ -75,6 +78,53 @@ export const uploadProfilePicture = async (req, res) => {
     await user.save();
 
     return res.json({ message: "Profile picture updated" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const updateUserProfile = async (req, res) => {
+  try {
+    const { token, ...newUserData } = req.body;
+
+    const user = await User.findOne({ token: token });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const { username, email } = newUserData;
+
+    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+
+    //if user id is not matching with the existing user then show error
+    if (existingUser) {
+      if (existingUser || String(existingUser._id) != String(user._id)) {
+        return res.status(400).json({ message: "User already exists" });
+      }
+    }
+    Object.assign(user, newUserData);
+
+    await User.save();
+    return res.json({ message: "User updated" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const getUserAndProfile = async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    const user = await User.findOne({ token: token });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const userProfile = await Profile.findOne({ userId: user._id }).populate('userId', 'name email username profilePicture');
+
+    return res.json(userProfile)
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
