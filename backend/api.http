@@ -26,3 +26,27 @@ content-Type: application/json
 {
   "token": "8eebec2b93a6c43f43f2c990744c62d3ea4f193a724774310d3790ea50f9c729"
 }
+###
+
+POST http://localhost:9080/update_profile_data HTTP/1.1
+content-Type: application/json
+
+{
+  "token": "8eebec2b93a6c43f43f2c990744c62d3ea4f193a724774310d3790ea50f9c729",
+  "bio": "Hi, I am Nirupam Pal",
+  "currentPost": "Student",
+  "pastWork": [
+    {
+      "company": "Microsoft",
+      "position": "CTO",
+      "years": "2+"
+    }
+  ],
+  "education":[
+    {
+      "school": "Shishu Bihar HS School",
+      "degree": "B.Tech",
+      "fieldOfStudy": "CSE"
+    }
+  ]
+}
