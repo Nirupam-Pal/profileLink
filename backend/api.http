@@ -17,3 +17,12 @@ content-Type: application/json
   "email": "nirupampal14@gmail.com",
   "password": "nirupam123"
 }
+
+###
+
+POST http://localhost:9080/get_user_and_profile HTTP/1.1
+content-Type: application/json
+
+{
+  "token": "8eebec2b93a6c43f43f2c990744c62d3ea4f193a724774310d3790ea50f9c729"
+}
