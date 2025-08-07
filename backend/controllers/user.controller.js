@@ -2,13 +2,76 @@ import Profile from "../models/profile.model.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
-import PDFDocument from 'pdfkit'
+import PDFDocument from "pdfkit";
+import fs from "fs";
 
-const convertUserDataTOPDF = (userData) =>{
-  const doc = new PDFDocument();
+// const convertUserDataTOPDF = async (userData) => {
+//   const doc = new PDFDocument();
 
-  const outputPath = crypto.randomBytes(32).toString("hex") + ".pdf";
-}
+//   const outputPath = crypto.randomBytes(32).toString("hex") + ".pdf";
+//   const stream = fs.createWriteStream("uploads/" + outputPath);
+
+//   doc.pipe(stream);
+
+//   doc.image(`uploads/${userData.userId.profilePicture}`, {
+//     align: "center",
+//     width: 100,
+//   });
+//   doc.fontSize(14).text(`Name: ${userData.userId.name}`);
+//   doc.fontSize(14).text(`Username: ${userData.userId.username}`);
+//   doc.fontSize(14).text(`Email: ${userData.userId.email}`);
+//   doc.fontSize(14).text(`Bio: ${userData.bio}`);
+//   doc.fontSize(14).text(`Current Position: ${userData.currentPost}`);
+
+//   doc.fontSize(14).text("Past Work: ");
+//   userData.pastWork.forEach((work, index) => {
+//     doc.fontSize(14).text(`Company Name: ${work.company}`);
+//     doc.fontSize(14).text(`Position: ${work.position}`);
+//     doc.fontSize(14).text(`Years: ${work.years}`);
+//   });
+
+//   doc.end();
+
+//   return outputPath;
+// };
+
+const convertUserDataTOPDF = (userData) => {
+  return new Promise((resolve, reject) => {
+    const doc = new PDFDocument();
+    const outputPath = crypto.randomBytes(32).toString("hex") + ".pdf";
+    const stream = fs.createWriteStream("uploads/" + outputPath);
+
+    doc.pipe(stream);
+
+    // Add content
+    doc.image(`uploads/${userData.userId.profilePicture}`, {
+      align: "center",
+      width: 100,
+    });
+    doc.fontSize(14).text(`Name: ${userData.userId.name}`);
+    doc.fontSize(14).text(`Username: ${userData.userId.username}`);
+    doc.fontSize(14).text(`Email: ${userData.userId.email}`);
+    doc.fontSize(14).text(`Bio: ${userData.bio}`);
+    doc.fontSize(14).text(`Current Position: ${userData.currentPost}`);
+    doc.fontSize(14).text("Past Work: ");
+
+    userData.pastWork.forEach((work) => {
+      doc.fontSize(14).text(`Company Name: ${work.company}`);
+      doc.fontSize(14).text(`Position: ${work.position}`);
+      doc.fontSize(14).text(`Years: ${work.years}`);
+    });
+
+    doc.end();
+
+    stream.on("finish", () => {
+      resolve(outputPath);
+    });
+
+    stream.on("error", (err) => {
+      reject(err);
+    });
+  });
+};
 
 export const register = async (req, res) => {
   try {
@@ -176,12 +239,19 @@ export const getAllUserProfile = async (req, res) => {
   }
 };
 
-export const downloadProfile = async (req, res)=>{
-  const user_id = req.query.id;
+export const downloadProfile = async (req, res) => {
+  try {
+    const user_id = req.query.id;
 
-  const userProfile = await Profile.findOne({ userId: user_id}).populate('userId', 'name username email profilePicture');
+    const userProfile = await Profile.findOne({ userId: user_id }).populate(
+      "userId",
+      "name username email profilePicture"
+    );
 
-  let a = await convertUserDataTOPDF(userProfile);
+    let outputPath = await convertUserDataTOPDF(userProfile);
 
-  return res.json({"message": a})
-}
+    return res.json({ message: outputPath });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};

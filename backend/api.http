@@ -48,8 +48,8 @@ POST http://localhost:9080/login HTTP/1.1
 content-Type: application/json
 
 {
-  "email": "nirupampal14@gmail.com",
-  "password": "nirupam123"
+  "email": "sourik2@gmail.com",
+  "password": "sourik123"
 }
 
 ###
@@ -66,14 +66,14 @@ POST http://localhost:9080/update_profile_data HTTP/1.1
 content-Type: application/json
 
 {
-  "token": "8eebec2b93a6c43f43f2c990744c62d3ea4f193a724774310d3790ea50f9c729",
-  "bio": "Hi, I am Nirupam Pal",
-  "currentPost": "Student",
+  "token": "0cb4d4455616ed0518dfbf4751d952e7b0019cf79ed252fb204ab059aef4c3c5",
+  "bio": "Hi, I am Sourik Pal",
+  "currentPost": "Software Engineer",
   "pastWork": [
     {
-      "company": "Microsoft",
-      "position": "CTO",
-      "years": "2+"
+      "company": "Google",
+      "position": "CEO",
+      "years": "9+"
     }
   ],
   "education":[
