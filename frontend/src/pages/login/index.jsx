@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./style.module.css";
 import { loginUser, registerUser } from "@/config/redux/action/authAction";
+import { emptyMessage } from "@/config/redux/reducer/authReducer";
 
 function LoginComponent() {
   const authState = useSelector((state) => state.auth);
@@ -13,6 +14,11 @@ function LoginComponent() {
   const dispatch = useDispatch();
 
   const [userLoginMethod, setUserLoginMethod] = useState(false);
+  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
 
   useEffect(() => {
     if (authState.loggedIn) {
@@ -20,15 +26,26 @@ function LoginComponent() {
     }
   }, [authState.loggedIn]);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [name, setName] = useState("");
+  useEffect(()=>{
+    if(localStorage.getItem("token")){
+      router.push("/dashboard")
+    }
+  },[])
+
+  useEffect(()=>{
+    dispatch(emptyMessage())
+  }, [userLoginMethod])
+
 
   const handleRegister = () => {
-    console.log("Registering");
     dispatch(registerUser({ username, password, email, name }));
   };
+
+  const handleLogin = () =>{
+    console.log("login");
+    
+    dispatch(loginUser({email, password}))
+  }
 
   return (
     <UserLayout>
@@ -36,14 +53,14 @@ function LoginComponent() {
         <div className={styles.cardContainer}>
           <div className={styles.cardContainer_left}>
             <p className={styles.cardleft_heading}>
-              {userLoginMethod ? "Login" : "Sign In"}
+              {userLoginMethod ? "Login" : "Sign Up"}
             </p>
             <p style={{ color: authState.isError ? "red" : "green" }}>
               {authState.message.message}
             </p>
 
             <div className={styles.inputContainer}>
-              <div className={styles.inputRow}>
+              {!userLoginMethod && <div className={styles.inputRow}>
                 <input
                   onChange={(e) => setUsername(e.target.value)}
                   className={styles.inputField}
@@ -56,7 +73,7 @@ function LoginComponent() {
                   type="text"
                   placeholder="Name"
                 />
-              </div>
+              </div>}
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 className={styles.inputField}
@@ -73,17 +90,27 @@ function LoginComponent() {
               <div
                 onClick={() => {
                   if (userLoginMethod) {
+                    handleLogin();
                   } else {
                     handleRegister();
                   }
                 }}
                 className={styles.buttonWithOutline}
               >
-                <p>{userLoginMethod ? "Login" : "Sign In"}</p>
+                <p>{userLoginMethod ? "Login" : "Sign Up"}</p>
               </div>
             </div>
           </div>
-          <div className={styles.cardContainer_right}></div>
+          <div className={styles.cardContainer_right}>
+            <div>
+              {userLoginMethod ? <p>Don't have an account ?</p>: <p>Already have an account ?</p>}
+              <div onClick={()=>{
+                setUserLoginMethod(!userLoginMethod)
+              }} className={styles.signinBtn}>
+                <p>{userLoginMethod ? "Sign Up":"Login"}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </UserLayout>
