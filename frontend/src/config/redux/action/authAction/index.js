@@ -1,5 +1,6 @@
 import { clientServer } from "@/config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { Coiny } from "next/font/google";
 
 
 export const loginUser = createAsyncThunk(
@@ -42,6 +43,25 @@ export const registerUser = createAsyncThunk(
             // if(user.data){
 
             // }
+        }catch(err){
+            return thunkAPI.rejectWithValue(err.response.data)
+        }
+    }
+)
+
+
+export const getAboutUser = createAsyncThunk(
+    "user/getAboutUser",
+    async(user, thunkAPI)=>{
+        try{
+
+            const response = await clientServer.get("/get_user_and_profile", {
+                params: {
+                    token: user.token
+                }
+            })
+
+            return thunkAPI.fulfillWithValue(response.data)
         }catch(err){
             return thunkAPI.rejectWithValue(err.response.data)
         }
