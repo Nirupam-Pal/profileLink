@@ -1,5 +1,6 @@
 import { getAboutUser } from "@/config/redux/action/authAction";
 import { getAllPosts } from "@/config/redux/action/postAction";
+import DashboardLayout from "@/layout/DashboardLayout";
 import UserLayout from "@/layout/UserLayout";
 import { useRouter } from "next/router";
 import React, { useEffect, useReducer, useState } from "react";
@@ -30,9 +31,15 @@ export default function Dashboard() {
 
   return (
     <UserLayout>
-      {authState.profileFetched &&  (
-        <div>Hey {authState.user.userId.name}</div>
-      )}
+
+
+      <DashboardLayout>
+        <div>
+          <h1>Dashboard</h1>
+        </div>
+      </DashboardLayout>
+
+
     </UserLayout>
   );
 }

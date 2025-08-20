@@ -1,6 +1,7 @@
 .container{
     font-family: "Poppins", sans-serif;
     padding: 1.2rem;
+    background-image: linear-gradient(to bottom, white, #dbeafe, white);
 }
 
 .mainContainer{
