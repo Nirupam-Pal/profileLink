@@ -21,7 +21,7 @@
     align-items: center;
     font-size: 1.2rem;
     gap: 0.6rem;
-    width: 80%;
+    min-width: 80%;
     max-width: 80%;
     margin: 0 auto;
     cursor: pointer;
@@ -33,6 +33,6 @@
 }
 
 .sideBarOption > svg{
-    max-height: 1.4em;
-    min-height: 1.4em;
+    height: 1.4rem;
+    min-width: fit-content;
 }

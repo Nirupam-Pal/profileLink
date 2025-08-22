@@ -1,0 +1,50 @@
+.scrollComponent{
+    display: flex;
+    justify-content: center;
+}
+.createPostContainer{
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+    height: 12svh;
+    width: 85%;
+    padding-inline: 0.8rem;
+    /* background: #f2f2f2; */
+    border-radius: 10px;
+    border: 1px solid silver;
+}
+
+.createPostContainer > textarea{
+    width: 100%;
+}
+
+.textAreaOfContent{
+    width: 80%;
+    height: 70%;
+    border: 1px solid silver;
+    border-radius: 10px;
+    padding-inline: 1rem;
+    padding-block: 1rem;
+    outline: none;
+}
+
+.Fab{
+    border-radius: 100%;
+    justify-content: center;
+    display: flex;
+    border: 2px solid #2036ca;
+    color: #192eb8;
+}
+
+.Fab > svg{
+    width: fit-content;
+    height: 25px;
+}
+
+.userProfile {
+    height: 80px;         /* set a fixed height */
+    width: 80px;          /* same as height */
+    border-radius: 50%;   /* makes it a perfect circle */
+    object-fit: cover;    /* ensures image covers the container without distortion */
+    /* border: 1px solid gray; */ /* optional */
+}
