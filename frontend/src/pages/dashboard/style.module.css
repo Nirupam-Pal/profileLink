@@ -124,3 +124,26 @@
     color: grey;
     font-size: 0.9rem;
 }
+
+.previewContainer {
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 0.6rem;
+    max-width: 200px;
+    background: #f9f9f9;
+    position: relative;
+}
+
+.previewImage {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.previewFileName {
+    font-size: 0.85rem;
+    color: #333;
+    word-break: break-word;
+}

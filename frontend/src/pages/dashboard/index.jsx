@@ -65,6 +65,27 @@ export default function Dashboard() {
                 }
 
               </div>
+              <div>
+                {fileContent && (
+                  <div className={styles.previewContainer}>
+                    <span
+                      style={{ cursor: "pointer", color: "red", float: "right" }}
+                      onClick={() => setFileContent(null)}
+                    >
+                      ✕
+                    </span>
+                    {fileContent.type.startsWith("image/") ? (
+                      <img
+                        src={URL.createObjectURL(fileContent)}
+                        alt="preview"
+                        className={styles.previewImage}
+                      />
+                    ) : (
+                      <p className={styles.previewFileName}>{fileContent.name}</p>
+                    )}
+                  </div>
+                )}
+              </div>
 
               <div className={styles.postContainer}>
                 {postState.posts.map((post, index) => {
@@ -78,10 +99,10 @@ export default function Dashboard() {
                             <p>{post.userId.name}</p>
                             {
                               post.userId._id === authState.user.userId._id &&
-                              <div onClick={async()=>{
+                              <div onClick={async () => {
                                 dispatch(deletePost({ post_id: post._id }))
                                 dispatch(getAllPosts())
-                              }} style={{cursor: "pointer" }}>
+                              }} style={{ cursor: "pointer" }}>
                                 <svg style={{ height: "1.4rem", color: "red", }}
                                   xmlns="http://www.w3.org/2000/svg" fill="none"
                                   viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
