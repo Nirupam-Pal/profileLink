@@ -1,108 +1,126 @@
-.scrollComponent{
+.scrollComponent {
     display: flex;
     justify-content: center;
+    width: 100%;
 }
-.createPostContainer{
+
+.wrapper {
     display: flex;
-    height: 15svh;
-    max-width: 700px;
-    width: 50rem;
-    margin: 0 auto;
-    padding-inline: 0.8rem;
+    flex-direction: column;
     gap: 1.3rem;
-    position: relative;
+    width: 100%;
+    max-width: 700px;   /* feed column size */
+    margin: 0 auto;
+}
+
+/* create post box */
+.createPostContainer {
+    display: flex;
     align-items: center;
+    gap: 1.3rem;
+    padding: 0.8rem;
     background: #f2f2f2ad;
     border-radius: 10px;
     border: 1px solid silver;
 }
 
-.wrapper{
-    display: flex;
-    flex-direction: column;
-    gap: 1.3rem;
-    justify-content: center;
-    max-width: 80%;
-}
-
-
-.createPostContainer > textarea{
-    width: 100%;
-}
-
-.textAreaOfContent{
-    width: 80%;
-    height: 70%;
+/* text area */
+.textAreaOfContent {
+    flex: 1;
+    min-height: 80px;
     border: 1px solid silver;
-    font-family: Arial, Helvetica, sans-serif;
     border-radius: 10px;
-    padding-inline: 1rem;
-    padding-block: 1rem;
+    padding: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
     outline: none;
 }
 
-.Fab{
-    border-radius: 100%;
-    justify-content: center;
+
+.Fab {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
     border: 2px solid #2036ca;
     color: #192eb8;
-}
-
-.Fab > svg{
-    width: fit-content;
-    height: 25px;
-}
-
-.userProfile {
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.uploadButton{
-    background: rgb(80, 80, 230);
-    color: white;
-    border-radius: 10px;
-    padding-inline:1.2rem;
-    padding-block: 0.8rem;
+    padding: 0.4rem;
     cursor: pointer;
 }
 
-.uploadButton.show {
-    opacity: 1;
-    transform: translateY(2);
-    pointer-events: auto;
+.Fab > svg {
+    height: 22px;
+    width: 22px;
 }
 
-.singleCard{
+/* upload button */
+.uploadButton {
+    background: rgb(80, 80, 230);
+    color: white;
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* posts */
+.postContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.singleCard {
     width: 100%;
-    border-radius: 10px 10px 0px 0px;
-    border-bottom: 1px solid gray;
+    /* border-radius: 10px;
+    border: 1px solid #ddd; */
+    background: white;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    overflow: hidden;
+    border-bottom: 1px solid #918c8c;
 }
 
-.singleCard__profileContainer{
+.singleCard__profileContainer {
     display: flex;
     align-items: flex-start;
-    gap: 1.2rem;
-    padding: 1.2rem;
+    gap: 1rem;
 }
-.singleCard__profileContainer > img{
-    width: 10%;
+
+.userProfile,
+.singleCard__profileContainer > img {
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
-}
-
-.singleCard__image{
-    width: 100%;
-    padding-top: 0.6rem;
-    height: fit-content;
-    overflow: hidden;
-
-}
-
-.singleCard__image>img{
-    width: 100%;
-    height: auto;
     object-fit: cover;
+    justify-content: center;
+}
+
+.singleCard__image {
+    width: 100%;
+    padding: 0.6rem;
+}
+
+.singleCard__image > img {
+    width: 100%;
+    /* border-radius: 8px; */
+    object-fit: cover;
+}
+
+.singleCard__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.singleCard__header p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.singleCard__username {
+    color: grey;
+    font-size: 0.9rem;
 }
