@@ -4,16 +4,27 @@
 }
 .createPostContainer{
     display: flex;
-    align-items: center;
-    gap: 1.3rem;
-    height: 12svh;
-    width: 85%;
+    height: 15svh;
+    max-width: 700px;
+    width: 50rem;
+    margin: 0 auto;
     padding-inline: 0.8rem;
+    gap: 1.3rem;
+    position: relative;
+    align-items: center;
     background: #f2f2f2ad;
     border-radius: 10px;
     border: 1px solid silver;
-    /* position: relative; */
 }
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    justify-content: center;
+    max-width: 80%;
+}
+
 
 .createPostContainer > textarea{
     width: 100%;
@@ -23,6 +34,7 @@
     width: 80%;
     height: 70%;
     border: 1px solid silver;
+    font-family: Arial, Helvetica, sans-serif;
     border-radius: 10px;
     padding-inline: 1rem;
     padding-block: 1rem;
@@ -50,9 +62,6 @@
 }
 
 .uploadButton{
-    /* position: absolute; */
-    /* right: 0;
-    bottom: -30px; */
     background: rgb(80, 80, 230);
     color: white;
     border-radius: 10px;
@@ -65,4 +74,35 @@
     opacity: 1;
     transform: translateY(2);
     pointer-events: auto;
+}
+
+.singleCard{
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+    border-bottom: 1px solid gray;
+}
+
+.singleCard__profileContainer{
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.2rem;
+}
+.singleCard__profileContainer > img{
+    width: 10%;
+    border-radius: 50%;
+}
+
+.singleCard__image{
+    width: 100%;
+    padding-top: 0.6rem;
+    height: fit-content;
+    overflow: hidden;
+
+}
+
+.singleCard__image>img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
