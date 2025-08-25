@@ -147,3 +147,27 @@
     color: #333;
     word-break: break-word;
 }
+
+.optionsContainer{
+    display: flex;
+    height: 20%;
+    width: 100%;
+    justify-content: space-between;
+    /* padding-block: 0.6rem; */
+}
+
+.singleOption__optionsContainer{
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.singleOption__optionsContainer>svg{
+    height: 100%;
+    width: 10%;
+}
+.singleOption__optionsContainer>p{
+    font-size: large;
+}
