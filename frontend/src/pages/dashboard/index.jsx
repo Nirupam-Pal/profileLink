@@ -1,5 +1,5 @@
 import { getAboutUser, getAllUsers } from "@/config/redux/action/authAction";
-import { createPost, deletePost, getAllComments, getAllPosts, incrementPostLike } from "@/config/redux/action/postAction";
+import { createPost, deletePost, getAllComments, getAllPosts, incrementPostLike, postComment } from "@/config/redux/action/postAction";
 import DashboardLayout from "@/layout/DashboardLayout";
 import UserLayout from "@/layout/UserLayout";
 import { useRouter } from "next/router";
@@ -32,6 +32,8 @@ export default function Dashboard() {
   const [postContent, setPostContent] = useState("");
 
   const [fileContent, setFileContent] = useState();
+
+  const [commentText, setCommentText] = useState("");
 
   const handleUpload = async () => {
     await dispatch(createPost({ file: fileContent, body: postContent }));
@@ -95,7 +97,7 @@ export default function Dashboard() {
                       <div className={styles.singleCard__profileContainer}>
                         <img className={styles.userProfile} src={`${BASE_URL}/${post.userId.profilePicture}`} alt="" />
 
-                        <div style={{ flex: 1 }}>
+                        <div>
                           <div className={styles.singleCard__header}>
                             <p>{post.userId.name}</p>
                             {
@@ -124,8 +126,8 @@ export default function Dashboard() {
 
                           <div className={styles.optionsContainer}>
                             <div onClick={async () => {
-                              dispatch(incrementPostLike({ post_id: post._id,  user_id: authState.user.userId._id  }))
-                              dispatch(getAllPosts())
+                              await dispatch(incrementPostLike({ post_id: post._id, user_id: authState.user.userId._id }))
+                              await dispatch(getAllPosts())
                             }} className={styles.singleOption__optionsContainer}>
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
@@ -172,7 +174,38 @@ export default function Dashboard() {
                 className={styles.allcommentsContainer}
                 onClick={(e) => e.stopPropagation()}
               >
-                {postState.comments.length == 0 && <h2>No Comments</h2>}
+                {postState.comments.length === 0 && <h2>No Comments</h2>}
+
+                {postState.comments.length !== 0 &&
+
+                
+                  <div>
+                    {postState.comments.map((comment, index)=>{
+                      return (
+                        <div className={styles.singleComment} key={commentText._id}>
+                          <div className={styles.singleComment_profileContainer}>
+                            <img src={`${BASE_URL}/${comment.userId.profilePicture}`} alt="" />
+                            <div>
+                              <p style={{fontWeight: "bold", fontSize: "1rem"}}>{comment.userId.username}</p>
+                            </div>
+                          </div>
+                          <p>
+                            {comment.body}
+                          </p>
+                        </div>
+                      )
+                    })}
+                  </div>}
+
+                <div className={styles.postCommentContainer}>
+                  <input type="text" value={commentText} onChange={(e) => setCommentText(e.target.value)} placeholder="Comment" />
+                  <div onClick={async () => {
+                    await dispatch(postComment({ post_id: postState.postId, body: commentText }))
+                    await dispatch(getAllComments({ post_id: postState.postId }))
+                  }} className={styles.postCommentContainer_commentBtn}>
+                    <p>Comment</p>
+                  </div>
+                </div>
               </div>
             </div>
           }

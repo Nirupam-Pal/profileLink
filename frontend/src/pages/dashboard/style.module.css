@@ -104,7 +104,7 @@
 
 .singleCard__image > img {
   width: 100%;
-  /* border-radius: 8px; */
+  border-radius: 8px;
   object-fit: cover;
 }
 
@@ -151,7 +151,7 @@
   display: flex;
   height: 20%;
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
   /* padding-block: 0.6rem; */
 }
 
@@ -218,4 +218,41 @@
   transform-origin: center;
   will-change: transform, opacity;
   animation: popInModal 220ms cubic-bezier(.2,.9,.2,1);
+}
+
+
+.postCommentContainer{
+    position: absolute;
+    bottom: 1.2rem;
+    left: 1.2rem;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+}
+
+.postCommentContainer>input{
+    flex: 0.9;
+    padding-inline: 1.5rem;
+    padding-block: 1.2rem;
+    border: none;
+    background: rgb(228, 228, 228);
+    border-radius: 10px;
+    outline: none;
+}
+
+.postCommentContainer>input:focus{
+    border: 1px solid silver;
+}
+
+.postCommentContainer_commentBtn{
+    flex: 0.1;
+    width: fit-content;
+    padding: 1rem;
+    color: white;
+    background: orange;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
 }

@@ -1,3 +1,4 @@
+import Comment from "../models/comments.model.js";
 import Post from "../models/posts.model.js";
 import Profile from "../models/profile.model.js";
 import User from "../models/user.model.js";
@@ -72,6 +73,7 @@ export const deletePost = async (req, res) => {
 };
 
 export const commentPost = async (req, res) => {
+
   const { token, post_id, commentBody } = req.body;
 
   try {
@@ -90,7 +92,7 @@ export const commentPost = async (req, res) => {
     const comment = new Comment({
       userId: user._id,
       postId: post_id,
-      comment: commentBody,
+      body: commentBody,
     });
 
     await comment.save();
@@ -111,7 +113,9 @@ export const get_comment_by_post = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    return res.json({ comments: post.comments });
+    const comments = await Comment.find({postId: post_id}).populate("userId", "username name");
+
+    return res.json(comments.reverse());
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
