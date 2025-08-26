@@ -112,7 +112,6 @@ export const get_comment_by_post = async (req, res) => {
     }
 
     return res.json({ comments: post.comments });
-    
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }

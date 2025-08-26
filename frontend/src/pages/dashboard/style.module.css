@@ -164,12 +164,19 @@
 }
 
 .singleOption__optionsContainer > svg {
-  height: 100%;
-  width: 10%;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease, fill 0.2s ease;
 }
+
+.singleOption__optionsContainer > svg:hover {
+  transform: scale(1.2);
+}
+
 .singleOption__optionsContainer > p {
   font-size: large;
 }
+
 
 @keyframes fadeInOverlay {
   from { opacity: 0; }

@@ -124,7 +124,7 @@ export default function Dashboard() {
 
                           <div className={styles.optionsContainer}>
                             <div onClick={async () => {
-                              dispatch(incrementPostLike({ post_id: post._id }))
+                              dispatch(incrementPostLike({ post_id: post._id,  user_id: authState.user.userId._id  }))
                               dispatch(getAllPosts())
                             }} className={styles.singleOption__optionsContainer}>
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
