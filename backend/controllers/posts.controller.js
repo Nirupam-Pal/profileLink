@@ -101,8 +101,8 @@ export const commentPost = async (req, res) => {
   }
 };
 
-export const get_comment_by_post = async (res, req) => {
-  const post_id = req.body;
+export const get_comment_by_post = async (req, res) => {
+  const {post_id} = req.query;
 
   try {
     const post = await Post.findOne({ _id: post_id });
@@ -112,6 +112,7 @@ export const get_comment_by_post = async (res, req) => {
     }
 
     return res.json({ comments: post.comments });
+    
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }

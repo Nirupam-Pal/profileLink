@@ -1,5 +1,6 @@
 import { clientServer } from "@/config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { Comme } from "next/font/google";
 
 export const getAllPosts = createAsyncThunk(
     "post/getAllPosts",
@@ -59,6 +60,42 @@ export const deletePost = createAsyncThunk(
             return thunkAPI.fulfillWithValue(response.data)
         }catch(err){
             return thunkAPI.rejectWithValue("Something went wrong")
+        }
+    }
+)
+
+export const incrementPostLike = createAsyncThunk(
+    "post/incrementLike",
+
+    async (post, thunkAPI)=>{
+        try{
+            const response = await clientServer.post('/increment_post_like', {
+                post_id: post.post_id
+            })
+
+            return thunkAPI.fulfillWithValue(response.data)
+        }catch(err){
+            return thunkAPI.rejectWithValue(err.response.data)
+        }
+    }
+
+)
+
+export const getAllComments = createAsyncThunk(
+    "post/getAllComments",
+    async (postData, thunkAPI) =>{
+        try{
+            const response = await clientServer.get("/get_comments", {
+                params: {
+                    post_id: postData.post_id
+                }
+            });
+            return thunkAPI.fulfillWithValue({
+                comments: response.data,
+                post_id: postData.post_id
+            })
+        }catch(err){
+            return thunkAPI.rejectWithValue("Somethin went wrong")
         }
     }
 )
