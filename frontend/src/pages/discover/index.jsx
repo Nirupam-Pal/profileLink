@@ -5,12 +5,14 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from "./style.module.css"
 import { BASE_URL } from '@/config'
+import { useRouter } from 'next/router'
 
 export default function DiscoverPage() {
 
   const authState = useSelector((state) => state.auth)
 
   const dispatch = useDispatch()
+  const router = useRouter()
 
   useEffect(() => {
     if (!authState.all_profiles_fetched) {
@@ -27,7 +29,9 @@ export default function DiscoverPage() {
           <div className={styles.allUserProfile}>
             {authState.all_profiles_fetched && authState.all_users.map((user) => {
               return (
-                <div key={user._id} className={styles.userCard}>
+                <div onClick={()=>{
+                  router.push(`/view_profile/${user.userId.username}`)
+                }} key={user._id} className={styles.userCard}>
                   <img className={styles.userCard_img} src={`${BASE_URL}/${user.userId.profilePicture}`} alt="profile" />
                   <div>
                     <h1>{user.userId.name}</h1>

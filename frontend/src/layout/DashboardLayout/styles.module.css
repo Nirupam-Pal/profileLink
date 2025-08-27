@@ -13,7 +13,13 @@
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
-    align-items: start;
+    align-items: flex-start;
+    border-right: 1px solid rgb(222, 222, 222);
+}
+
+.homeConatiner__extraContainer{
+    padding-left: 1.2rem;
+    border-left: 1px solid rgb(222, 222, 222);
 }
 
 .sideBarOption{
@@ -35,4 +41,8 @@
 .sideBarOption > svg{
     height: 1.4rem;
     min-width: fit-content;
+}
+
+.homeConatiner__feedContainer{
+    padding-inline: 0.8rem;
 }
