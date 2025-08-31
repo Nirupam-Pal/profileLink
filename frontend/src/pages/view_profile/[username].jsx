@@ -7,6 +7,7 @@ import styles from "./style.module.css"
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosts } from '@/config/redux/action/postAction';
+import { getConnectionsRequest, sendConnectionRequest } from '@/config/redux/action/authAction';
 
 export default function ViewProfilePage({ userProfile }) {
 
@@ -21,10 +22,11 @@ export default function ViewProfilePage({ userProfile }) {
 
   const [isCurrentUserInConnection, setIsCurrentUserInConnection] = useState(false)
 
+  const [isConnectionNull, setIsConnectionNull] = useState(true)
 
   const getUserPost = async () => {
     await dispatch(getAllPosts())
-    // await dispatch(getConnectionsRequest({token: localStorage.getItem("token")}));
+    await dispatch(getConnectionsRequest({ token: localStorage.getItem("token") }));
   }
 
   useEffect(() => {
@@ -43,8 +45,12 @@ export default function ViewProfilePage({ userProfile }) {
   useEffect(() => {
     if (authState.connections.some(user => user.connectionId._id === userProfile.userId._id)) {
       setIsCurrentUserInConnection(true)
+      if (authState.connections.find(user => user.connectionId._id === userProfile.userId._id).status_accepted === true) {
+        setIsConnectionNull(false)
+      }
     }
   }, [authState.connections])
+
 
   useEffect(() => {
     getUserPost()
@@ -56,6 +62,7 @@ export default function ViewProfilePage({ userProfile }) {
 
   return (
     <UserLayout>
+
       <DashboardLayout>
         <div className={styles.container}>
           <div className={styles.backDropContainer}>
@@ -73,27 +80,28 @@ export default function ViewProfilePage({ userProfile }) {
                 </div>
 
                 {isCurrentUserInConnection ?
-                  <button className={styles.connectedButton}>Connected</button>
-                  : <button onClick={() => {
+                  <button className={styles.connectedButton}>{isConnectionNull ? "Pending" : "Connected"}</button>
+                  :
+                  <button onClick={() => {
                     dispatch(sendConnectionRequest({ token: localStorage.getItem("token"), user_id: userProfile.userId._id }))
                   }} className={styles.connectBtn}>Connect</button>}
 
-                  <div>
-                    <p>{userProfile.bio}</p>
-                  </div>
+                <div>
+                  <p>{userProfile.bio}</p>
+                </div>
 
               </div>
 
               <div style={{ flex: "0.2" }}>
                 <h3>Recent Activity</h3>
-                {userPosts.map((post)=>{
+                {userPosts.map((post) => {
                   return (
                     <div key={post._id} className={styles.postCard}>
                       <div className={styles.card}>
                         <div className={styles.card__profileContainer}>
 
-                          {post.media !== "" ? <img src={`${BASE_URL}/${post.media}`} alt=''/>
-                          : <div style={{width: "3.4rem", height: "3.4rem"}}></div>}
+                          {post.media !== "" ? <img src={`${BASE_URL}/${post.media}`} alt='' />
+                            : <div style={{ width: "3.4rem", height: "3.4rem" }}></div>}
 
 
                         </div>
@@ -110,6 +118,7 @@ export default function ViewProfilePage({ userProfile }) {
           </div>
         </div>
       </DashboardLayout>
+
     </UserLayout>
   )
 }
@@ -124,7 +133,6 @@ export async function getServerSideProps(context) {
   })
 
   const response = await request.data
-  console.log(response);
 
   return { props: { userProfile: request.data.profile } }
 }

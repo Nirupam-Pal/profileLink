@@ -60,8 +60,9 @@
 .connectedButton{
     padding-inline: 1rem;
     padding-block: 0.6rem;
-    background: rgba(3, 93, 183, 0.905);
+    background: rgba(115, 183, 252, 0.905);
     outline: none;
+    border: 1px solid rgb(114, 113, 113);
     color: white;
     border-radius: 10px;
     cursor: pointer;
