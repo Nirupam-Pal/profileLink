@@ -26,11 +26,11 @@ function LoginComponent() {
     }
   }, [authState.loggedIn]);
 
-  useEffect(()=>{
-    if(localStorage.getItem("token")){
-      router.push("/dashboard")
-    }
-  },[])
+  // useEffect(()=>{
+  //   if(localStorage.getItem("token")){
+  //     router.push("/dashboard")
+  //   }
+  // },[])
 
   useEffect(()=>{
     dispatch(emptyMessage())
