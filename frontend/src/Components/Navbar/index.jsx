@@ -26,7 +26,9 @@ const NavbarComponent = () => {
           {authState.profileFetched && (
             <div className={styles.profile}>
               <p>Hey {authState.user.userId.username}</p>
-              <p className={styles.proP}>Profile</p>
+              <p onClick={()=>{
+                router.push("/profile")
+              }} className={styles.proP}>Profile</p>
               <p onClick={()=>{
                 localStorage.removeItem("token")
                 router.push("/login")
