@@ -66,13 +66,13 @@ POST http://localhost:9080/update_profile_data HTTP/1.1
 content-Type: application/json
 
 {
-  "token": "0cb4d4455616ed0518dfbf4751d952e7b0019cf79ed252fb204ab059aef4c3c5",
-  "bio": "Hi, I am Sourik Pal",
+  "token": "53c53886b7c80ec593b6f2db98e22c1079affcc433f27bc348afe1496ddbd05f",
+  "bio": "Hi, I am Nirupam Pal",
   "currentPost": "Software Engineer",
   "pastWork": [
     {
       "company": "Google",
-      "position": "CEO",
+      "position": "SDE 2",
       "years": "9+"
     }
   ],
