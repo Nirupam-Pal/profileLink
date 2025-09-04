@@ -1,7 +1,6 @@
 import { BASE_URL, clientServer } from '@/config';
 import DashboardLayout from '@/layout/DashboardLayout';
 import UserLayout from '@/layout/UserLayout';
-import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import styles from "./style.module.css"
 import { useRouter } from 'next/router';
@@ -11,7 +10,6 @@ import { getConnectionsRequest, getMyConnectionRequests, sendConnectionRequest }
 
 export default function ViewProfilePage({ userProfile }) {
 
-  const searchParamers = useSearchParams();
   const router = useRouter()
   const postReducer = useSelector((state) => state.postReducer)
   const dispatch = useDispatch();
@@ -145,7 +143,7 @@ export default function ViewProfilePage({ userProfile }) {
 
 
                         </div>
-                        <p>{post.body}</p>
+                        <p style={{fontSize: "12px"}}>{post.body}</p>
                       </div>
                     </div>
                   )

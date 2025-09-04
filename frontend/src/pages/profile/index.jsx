@@ -6,7 +6,6 @@ import { BASE_URL, clientServer } from '@/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAboutUser } from '@/config/redux/action/authAction';
 import { getAllPosts } from '@/config/redux/action/postAction';
-import { useRouter } from 'next/router';
 
 export default function Profile() {
 
@@ -14,7 +13,6 @@ export default function Profile() {
   const authState = useSelector((state) => state.auth)
 
   const postReducer = useSelector((state) => state.postReducer)
-  const router = useRouter()
 
   const [userProfile, setUserProfile] = useState({});
 
@@ -26,15 +24,31 @@ export default function Profile() {
   }, [])
 
   useEffect(() => {
-    
-    if(authState.user != undefined){
+
+    if (authState.user != undefined) {
       setUserProfile(authState.user)
-      let post = postReducer.posts.filter((post)=>{
+      let post = postReducer.posts.filter((post) => {
         return post.userId.username === authState.user.userId.username
       })
       setUserPosts(post)
     }
   }, [authState.user, postReducer.posts])
+
+
+  const updateProfilePicture = async (file) =>{
+    const formData = new FormData();
+    formData.append("profile_picture", file);
+    formData.append("token", localStorage.getItem("token"));
+
+    const response = await clientServer.post("/update_profile_picture", formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+
+    dispatch(getAboutUser({token: localStorage.getItem("token")}));
+
+  }
 
 
 
@@ -44,7 +58,13 @@ export default function Profile() {
         {authState.user && userProfile.userId &&
           <div className={styles.container}>
             <div className={styles.backDropContainer}>
-              <img className={styles.backDrop} src={`${BASE_URL}/${userProfile.userId.profilePicture}`} alt="backdrop" />
+              <label htmlFor='profilePictureUpload' className={styles.backdrop__overlay}>
+                <p>Edit</p>
+                <input onChange={(e)=>{
+                  updateProfilePicture(e.target.files[0])
+                }} style={{display: "none"}} type="file" id='profilePictureUpload' />
+              </label>
+              <img src={`${BASE_URL}/${userProfile.userId.profilePicture}`} alt="backdrop" />
             </div>
 
             <div className={styles.profileContainer_details}>
@@ -97,7 +117,7 @@ export default function Profile() {
 
 
                           </div>
-                          <p>{post.body}</p>
+                          <p style={{ fontSize: "12px" }}>{post.body}</p>
                         </div>
                       </div>
                     )
