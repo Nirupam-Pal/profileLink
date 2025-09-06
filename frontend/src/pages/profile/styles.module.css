@@ -79,15 +79,147 @@
 
 .workHistoryContainer {
   display: flex;
+  /* flex-direction: column; */
   gap: 1.4rem;
   padding-top: 1.4rem;
   width: 100%;
   flex-wrap: wrap;
+  width: fit-content;
 }
+
+.workHistoryContainerX{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .workHistoryCard {
   min-width: fit-content;
   padding-inline: 2.5rem;
   padding-block: 1rem;
   border-radius: 10px;
-  box-shadow: 5px 5px 5px rgb(173, 173, 173);
+  box-shadow: 5px 5px 5px 2px rgb(173, 173, 173);
+}
+
+.profileContainer_details input {
+  outline: none;
+  border-style: none;
+  padding-block: 9px;
+  width: fit-content;
+}
+
+.nameEdit {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.updateProfileBtn {
+  padding-inline: 1rem;
+  padding-block: 0.6rem;
+  margin-block: 1.5rem;
+  background: rgba(3, 93, 183, 0.905);
+  outline: none;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.profileContainer_details textarea {
+  outline: none;
+  border: none;
+  padding-block: 5px;
+  font-family: "Segoe UI", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+  font-size: 1.1rem;
+}
+
+.addWorkButton {
+  width: fit-content;
+  padding-inline: 1.3rem;
+  background: whitesmoke;
+  border: 1px dotted silver;
+  border-radius: 10px;
+  padding-block: 1.2rem;
+  cursor: pointer;
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popInModal {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.commentsContainer {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* auto play on mount */
+  animation: fadeInOverlay 0.5s ease-in-out;
+}
+
+.allcommentsContainer {
+  width: 40vw;
+  height: fit-content;
+  background: white;
+  border-radius: 10px;
+  position: relative;
+  padding: 1.4rem;
+
+  /* pop-in */
+  transform-origin: center;
+  will-change: transform, opacity;
+  animation: popInModal 220ms cubic-bezier(0.2, 0.9, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.inputField {
+  padding-inline: 1.3rem;
+  padding-block: 0.4rem;
+  outline: none;
+  border-radius: 10px;
+  border: 1px solid silver;
+  width: 100%;
+}
+
+.addwrkbtn {
+  padding-inline: 1rem;
+  padding-block: 0.6rem;
+  background: rgba(35, 138, 240, 0.905);
+  outline: none;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  width: fit-content;
 }

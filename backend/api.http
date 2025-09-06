@@ -66,7 +66,7 @@ POST http://localhost:9080/update_profile_data HTTP/1.1
 content-Type: application/json
 
 {
-  "token": "53c53886b7c80ec593b6f2db98e22c1079affcc433f27bc348afe1496ddbd05f",
+  "token": "",
   "bio": "Hi, I am Nirupam Pal",
   "currentPost": "Software Engineer",
   "pastWork": [

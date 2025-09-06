@@ -170,13 +170,13 @@ export const updateUserProfile = async (req, res) => {
 
     //if user id is not matching with the existing user then show error
     if (existingUser) {
-      if (existingUser || String(existingUser._id) != String(user._id)) {
+      if (existingUser || String(existingUser._id) !== String(user._id)) {
         return res.status(400).json({ message: "User already exists" });
       }
     }
     Object.assign(user, newUserData);
 
-    await User.save();
+    await user.save();
     return res.json({ message: "User updated" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
