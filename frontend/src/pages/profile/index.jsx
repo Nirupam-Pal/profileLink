@@ -20,11 +20,20 @@ export default function Profile() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [isEduModalOpen, setIsEduModalOpen] = useState(false);
+
   const [inputData, setInputData] = useState({ company: '', position: '', years: '' })
+
+  const [eduInputData, setEduInputData] = useState({ school: '', degree: '', fieldOfStudy: '' })
 
   const handleWorkInputChange = (e) => {
     const { name, value } = e.target
     setInputData({ ...inputData, [name]: value })
+  }
+
+  const handleEducationInputChange = (e) => {
+    const { name, value } = e.target
+    setEduInputData({ ...eduInputData, [name]: value })
   }
 
 
@@ -100,7 +109,7 @@ export default function Profile() {
               <div style={{ display: "flex", gap: "0.7rem" }}>
 
                 <div style={{ flex: "0.8" }}>
-                  <div style={{ display: "flex", width: "fit-content", alignItems: "center", gap: "1.2rem" }}>
+                  <div style={{ display: "flex", flexDirection: "column", width: "fit-content", marginBottom: "1.5rem" }}>
                     <input className={styles.nameEdit} type="text" value={userProfile.userId.name} onChange={(e) => {
                       setUserProfile({ ...userProfile, userId: { ...userProfile.userId, name: e.target.value } })
                     }} />
@@ -144,6 +153,31 @@ export default function Profile() {
                       <button className={styles.addWorkButton} onClick={() => {
                         setIsModalOpen(true)
                       }}>Add Work</button>
+                    </div>
+                  </div>
+
+                  <div className={styles.workHistory}>
+                    <h4>Education</h4>
+
+                    <div className={styles.workHistoryContainerX}>
+                      <div className={styles.workHistoryContainer}>
+                        {
+                          userProfile.education.map((edu, index) => {
+                            return (
+                              <div key={index} className={styles.workHistoryCard}>
+                                <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem" }}>
+                                  {edu.school}
+                                </p>
+                                <p>{edu.degree} - {edu.fieldOfStudy}</p>
+                              </div>
+                            )
+                          })
+                        }
+                      </div>
+
+                      <button className={styles.addWorkButton} onClick={() => {
+                        setIsEduModalOpen(true)
+                      }}>Add Education</button>
                     </div>
                   </div>
 
@@ -230,6 +264,57 @@ export default function Profile() {
                 }}
                 className={styles.addwrkbtn}>
                 Add Work
+              </button>
+
+            </div>
+
+          </div>
+        }
+
+        {
+          isEduModalOpen &&
+          <div
+
+            onClick={() => {
+              setIsEduModalOpen(false)
+            }}
+            className={styles.commentsContainer}>
+
+            <div
+              onClick={(e) => {
+                e.stopPropagation()
+              }}
+              className={styles.allcommentsContainer}>
+
+              <input
+                onChange={handleEducationInputChange}
+                name='school'
+                className={styles.inputField}
+                type="text"
+                placeholder="Enter Your School"
+              />
+              <input
+                onChange={handleEducationInputChange}
+                name='degree'
+                className={styles.inputField}
+                type="text"
+                placeholder="Enter Your Degree"
+              />
+              <input
+                onChange={handleEducationInputChange}
+                name='fieldOfStudy'
+                className={styles.inputField}
+                type="text"
+                placeholder="Enter Your Field Of Study"
+              />
+
+              <button
+                onClick={() => {
+                  setUserProfile({ ...userProfile, education: [...userProfile.education, eduInputData] })
+                  setIsEduModalOpen(false)
+                }}
+                className={styles.addwrkbtn}>
+                Add Education
               </button>
 
             </div>

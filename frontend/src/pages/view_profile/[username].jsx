@@ -128,6 +128,25 @@ export default function ViewProfilePage({ userProfile }) {
                   </div>
                 </div>
 
+                <div className={styles.workHistory}>
+                  <h4>Education</h4>
+
+                  <div className={styles.workHistoryContainer}>
+                    {
+                      userProfile.education.map((edu, index) => {
+                        return (
+                          <div key={index} className={styles.workHistoryCard}>
+                            <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem" }}>
+                              {edu.school} 
+                            </p>
+                            <p>{edu.degree} - {edu.fieldOfStudy}</p>
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+                </div>
+
               </div>
 
               <div style={{ flex: "0.2" }}>
