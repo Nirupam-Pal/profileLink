@@ -1,4 +1,4 @@
-import { getAllUsers } from '@/config/redux/action/authAction'
+import { getAboutUser, getAllUsers } from '@/config/redux/action/authAction'
 import DashboardLayout from '@/layout/DashboardLayout'
 import UserLayout from '@/layout/UserLayout'
 import React, { useEffect } from 'react'
@@ -18,6 +18,9 @@ export default function DiscoverPage() {
     if (!authState.all_profiles_fetched) {
       dispatch(getAllUsers())
     }
+    if (!authState.profileFetched) {
+      dispatch(getAboutUser({ token: localStorage.getItem("token") }))
+    }
   }, [])
 
   return (
@@ -27,7 +30,7 @@ export default function DiscoverPage() {
         <div>
           <h1 style={{textAlign: "center"}}>Discover</h1>
           <div className={styles.allUserProfile}>
-            {authState.all_profiles_fetched && authState.all_users.map((user) => {
+            {authState.all_profiles_fetched && (authState.user ? authState.all_users.filter((u)=> u.userId._id !== authState.user.userId._id) : authState.all_users).map((user) => {
               return (
                 <div onClick={()=>{
                   router.push(`/view_profile/${user.userId.username}`)

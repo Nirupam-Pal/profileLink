@@ -1,5 +1,5 @@
 import { BASE_URL } from '@/config';
-import { AcceptConnection, getMyConnectionRequests } from '@/config/redux/action/authAction';
+import { AcceptConnection, getConnectionsRequest, getMyConnectionRequests } from '@/config/redux/action/authAction';
 import DashboardLayout from '@/layout/DashboardLayout'
 import UserLayout from '@/layout/UserLayout'
 import React, { useEffect } from 'react'
@@ -16,7 +16,9 @@ export default function MyConnectionsPage() {
   const authState = useSelector((state) => state.auth)
 
   useEffect(() => {
-    dispatch(getMyConnectionRequests({ token: localStorage.getItem("token") }));
+    const token = localStorage.getItem("token");
+    dispatch(getMyConnectionRequests({ token })); // incoming requests (others -> me)
+    dispatch(getConnectionsRequest({ token }));   // outgoing requests (me -> others)
   }, [])
 
   useEffect(() => {
@@ -74,30 +76,47 @@ export default function MyConnectionsPage() {
 
 
           <h3>My Network</h3>
-          {authState.connectionRequest.filter((connection) => connection.status_accepted !== null).map((user, index)=>{
-            return (
-              <div
-                onClick={() => {
-                  router.push(`/view_profile/${user.userId.username}`)
-                }}
-                key={index}
-                className={styles.userCard}
-              >
-                <div className={styles.profilePicture}>
-                  <img
-                    className={styles.userCard_image}
-                    src={`${BASE_URL}/${user.userId.profilePicture}`}
-                    alt=""
-                    style={{ width: "55px", height: "55px", borderRadius: "50%" }}
-                  />
+          {(() => {
+            const acceptedIncoming = (authState.connectionRequest || [])
+              .filter((c) => c.status_accepted === true)
+              .map((c) => ({ other: c.userId }));
+
+            const acceptedOutgoing = (authState.connections || [])
+              .filter((c) => c.status_accepted === true)
+              .map((c) => ({ other: c.connectionId }));
+
+            const acceptedAll = [...acceptedIncoming, ...acceptedOutgoing];
+
+            if (acceptedAll.length === 0) {
+              return <h2>No Connections Yet</h2>;
+            }
+
+            return acceptedAll.map((conn, index) => {
+              const u = conn.other;
+              return (
+                <div
+                  onClick={() => {
+                    router.push(`/view_profile/${u.username}`)
+                  }}
+                  key={index}
+                  className={styles.userCard}
+                >
+                  <div className={styles.profilePicture}>
+                    <img
+                      className={styles.userCard_image}
+                      src={`${BASE_URL}/${u.profilePicture}`}
+                      alt=""
+                      style={{ width: "55px", height: "55px", borderRadius: "50%" }}
+                    />
+                  </div>
+                  <div className={styles.userInfo} style={{ flex: 1 }}>
+                    <h4 style={{ margin: 0 }}>{u.name}</h4>
+                    <p style={{ margin: 0, color: "#888" }}>{u.username}</p>
+                  </div>
                 </div>
-                <div className={styles.userInfo} style={{ flex: 1 }}>
-                  <h4 style={{ margin: 0 }}>{user.userId.name}</h4>
-                  <p style={{ margin: 0, color: "#888" }}>{user.userId.username}</p>
-                </div>
-              </div>
-            )
-          })}
+              )
+            })
+          })()}
         </div>
       </DashboardLayout>
 

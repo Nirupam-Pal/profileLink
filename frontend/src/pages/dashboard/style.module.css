@@ -88,13 +88,21 @@
   gap: 1rem;
 }
 
-.userProfile,
-.singleCard__profileContainer > img {
+.userProfile{
   height: 50px;
   width: 50px;
   border-radius: 50%;
   object-fit: cover;
   justify-content: center;
+}
+.userProfile2 {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
 }
 
 .singleCard__image {
