@@ -162,7 +162,7 @@ export default function ViewProfilePage({ userProfile }) {
 
 
                         </div>
-                        <p style={{fontSize: "12px"}}>{post.body}</p>
+                        <p className={styles.recentPostCaption} style={{fontSize: "12px"}}>{post.body}</p>
                       </div>
                     </div>
                   )
