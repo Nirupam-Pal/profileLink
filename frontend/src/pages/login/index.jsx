@@ -26,6 +26,12 @@ function LoginComponent() {
     }
   }, [authState.loggedIn]);
 
+  useEffect(() => {
+    if (!userLoginMethod && authState.message?.message === "Registration is successfull, Please login") {
+      router.push("/login");
+    }
+  }, [authState.message, userLoginMethod]);
+
   useEffect(()=>{
     if(localStorage.getItem("token")){
       router.push("/dashboard")
@@ -42,8 +48,6 @@ function LoginComponent() {
   };
 
   const handleLogin = () =>{
-    console.log("login");
-    
     dispatch(loginUser({email, password}))
   }
 

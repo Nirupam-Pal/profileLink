@@ -21,6 +21,8 @@ export const loginUser = createAsyncThunk(
       }
 
       return thunkAPI.fulfillWithValue(response.data.token);
+
+      
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllComments, getAllPosts } from "../../action/postAction";
+import { deletePost, getAllComments, getAllPosts } from "../../action/postAction";
 
 const initialState = {
     posts: [],
@@ -41,6 +41,10 @@ const postSlice = createSlice({
             .addCase(getAllComments.fulfilled, (state, action)=>{
                 state.postId = action.payload.post_id
                 state.comments = action.payload.comments
+            })
+            .addCase(deletePost.fulfilled, (state, action) =>{
+                const deletedId = action.payload.post_id;
+                state.posts = state.posts.filter((p) => p._id !== deletedId)
             })
             
     }

@@ -57,7 +57,7 @@ export const deletePost = createAsyncThunk(
                 }
             });
 
-            return thunkAPI.fulfillWithValue(response.data)
+            return thunkAPI.fulfillWithValue({ ...response.data, post_id: post_id.post_id })
         }catch(err){
             return thunkAPI.rejectWithValue("Something went wrong")
         }

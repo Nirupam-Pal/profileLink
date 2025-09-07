@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styles from './styles.module.css'
 import { useRouter } from "next/router";
-import { setTokenIsThere } from "@/config/redux/reducer/authReducer";
+import { setTokenIsThere, setTokenIsNotThere } from "@/config/redux/reducer/authReducer";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function DashboardLayout({ children }) {
@@ -11,11 +11,14 @@ export default function DashboardLayout({ children }) {
      const authState = useSelector((state) => state.auth);
 
     useEffect(() => {
-        if (localStorage.getItem("token") == null) {
+        const token = localStorage.getItem("token");
+        if (token == null) {
+          dispatch(setTokenIsNotThere());
           router.push("/login");
+        } else {
+          dispatch(setTokenIsThere());
         }
-        dispatch(setTokenIsThere())
-      });
+      }, []);
 
 
     return (

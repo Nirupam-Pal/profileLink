@@ -120,7 +120,7 @@ export default function ViewProfilePage({ userProfile }) {
                             <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem" }}>
                               {work.company} - {work.position}
                             </p>
-                            <p>{work.years}</p>
+                            <p>{work.years}+</p>
                           </div>
                         )
                       })

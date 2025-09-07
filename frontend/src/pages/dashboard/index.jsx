@@ -18,6 +18,12 @@ export default function Dashboard() {
 
   const postState = useSelector((state) => state.postReducer)
 
+  useEffect(()=>{
+    if(localStorage.getItem('token') === null){
+      router.push("/login")
+    }
+  })
+
   useEffect(() => {
     if (authState.isTokenThere) {
       dispatch(getAllPosts());
