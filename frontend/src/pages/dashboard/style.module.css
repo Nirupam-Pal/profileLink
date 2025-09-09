@@ -71,8 +71,6 @@
 
 .singleCard {
   width: 100%;
-  /* border-radius: 10px;
-    border: 1px solid #ddd; */
   background: white;
   padding: 1rem;
   display: flex;
@@ -84,17 +82,19 @@
 
 .singleCard__profileContainer {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between; /* delete button on right */
   gap: 1rem;
 }
 
-.userProfile{
+.userProfile {
   height: 50px;
   width: 50px;
   border-radius: 50%;
   object-fit: cover;
   justify-content: center;
 }
+
 .userProfile2 {
   height: 50px;
   width: 50px;
@@ -103,6 +103,33 @@
   justify-content: center;
   aspect-ratio: 1 / 1;
   flex-shrink: 0;
+}
+
+.profileText {
+  flex: 1;
+}
+
+.profileName {
+  font-weight: bold;
+  margin: 0;
+}
+
+.singleCard__username {
+  color: grey;
+  font-size: 0.9rem;
+}
+
+.deleteBtn {
+  cursor: pointer;
+  color: red;
+  display: flex;
+  align-items: center;
+  padding-right: 1.5rem;
+}
+
+.deleteBtn > svg {
+  height: 1.4rem;
+  width: 1.4rem;
 }
 
 .singleCard__image {
@@ -114,22 +141,6 @@
   width: 100%;
   border-radius: 8px;
   object-fit: cover;
-}
-
-.singleCard__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-.singleCard__header p {
-  margin: 0;
-  font-weight: bold;
-}
-
-.singleCard__username {
-  color: grey;
-  font-size: 0.9rem;
 }
 
 .previewContainer {
@@ -164,7 +175,6 @@
   z-index: 1; 
 }
 
-
 .singleOption__optionsContainer {
   display: flex;
   align-items: center;
@@ -187,7 +197,6 @@
   font-size: large;
 }
 
-
 @keyframes fadeInOverlay {
   from { opacity: 0; }
   to   { opacity: 1; }
@@ -199,7 +208,7 @@
   100% { transform: scale(1); }
 }
 
-.commentsContainer{
+.commentsContainer {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -211,12 +220,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* auto play on mount */
   animation: fadeInOverlay 0.5s ease-in-out;
 }
 
-.allcommentsContainer{
+.allcommentsContainer {
   width: 40vw;
   height: 80vh;
   max-width: 1120px;
@@ -224,48 +231,45 @@
   border-radius: 10px;
   position: relative;
   padding: 1.4rem;
-
-  /* pop-in */
   transform-origin: center;
   will-change: transform, opacity;
   animation: popInModal 220ms cubic-bezier(.2,.9,.2,1);
 }
 
-
-.postCommentContainer{
-    position: absolute;
-    bottom: 1.2rem;
-    left: 1.2rem;
-    width: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.2rem;
+.postCommentContainer {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
 }
 
-.postCommentContainer>input{
-    flex: 0.9;
-    padding-inline: 1.5rem;
-    padding-block: 1.2rem;
-    border: none;
-    background: rgb(228, 228, 228);
-    border-radius: 10px;
-    outline: none;
+.postCommentContainer > input {
+  flex: 0.9;
+  padding-inline: 1.5rem;
+  padding-block: 1.2rem;
+  border: none;
+  background: rgb(228, 228, 228);
+  border-radius: 10px;
+  outline: none;
 }
 
-.postCommentContainer>input:focus{
-    border: 1px solid silver;
+.postCommentContainer > input:focus {
+  border: 1px solid silver;
 }
 
-.postCommentContainer_commentBtn{
-    flex: 0.1;
-    width: fit-content;
-    padding: 1rem;
-    color: white;
-    background: orange;
-    border-radius: 10px;
-    text-align: center;
-    cursor: pointer;
+.postCommentContainer_commentBtn {
+  flex: 0.1;
+  width: fit-content;
+  padding: 1rem;
+  color: white;
+  background: orange;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
 }
 
 .postBody {
@@ -286,16 +290,15 @@
   cursor: pointer;
   font-weight: 500;
   margin-left: 0.3rem;
-  white-space: nowrap; /* keeps it on the same line */
+  white-space: nowrap;
 }
 
-
-@media screen and (max-width: 880px){
-  .allcommentsContainer{
+@media screen and (max-width: 880px) {
+  .allcommentsContainer {
     width: 90svw;
   }
 
-  .postCommentContainer{
+  .postCommentContainer {
     gap: 0.5rem;
   }
 }
