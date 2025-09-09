@@ -301,4 +301,8 @@
   .postCommentContainer {
     gap: 0.5rem;
   }
+
+  .postBody{
+    -webkit-line-clamp: 3;
+  }
 }
