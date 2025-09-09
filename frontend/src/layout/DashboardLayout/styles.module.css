@@ -1,6 +1,7 @@
 .homeContainer {
     display: flex;
     margin-top: 1rem;
+    min-height: 87vh;
 }
 
 .homeContainer > div:nth-child(odd){
@@ -47,3 +48,45 @@
 .homeConatiner__feedContainer{
     padding-inline: 0.8rem;
 }
+
+.mobileNavbar{
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 6vh;
+    display: none;
+    justify-content: space-around;
+    background: white;
+    align-items: center;
+    position: fixed;
+}
+
+.singleNavItemHolder_mobileView{
+
+}
+
+.mobileNavbar svg{
+    height: 2rem;
+    width: 2rem;
+}
+
+@media only screen and (max-width: 950px){
+    .homeConatiner__extraContainer{
+        display: none;
+    }
+
+    .homeContainer{
+        display: block;
+    }
+
+    .homeConatiner__leftBar{
+        display: none;
+    }
+    .mobileNavbar{
+        display: flex;
+    }
+    .homeConatiner__feedContainer{
+        padding-bottom: 8vh;
+    }
+}
+

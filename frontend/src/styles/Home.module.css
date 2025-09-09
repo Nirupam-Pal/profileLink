@@ -73,3 +73,53 @@
     transform: scale(1.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+@media screen and (max-width: 1024px) {
+    .img {
+      height: 22rem;
+      width: 22rem;
+    }
+  
+    .mainContainer_left > p:nth-child(1) {
+      font-size: 2.2rem;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .mainContainer {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+      height: auto; /* let content adjust naturally */
+      padding: 2rem 1rem;
+    }
+  
+    .mainContainer_left > p:nth-child(1) {
+      font-size: 2rem;
+    }
+  
+    .mainContainer_left > p:nth-child(2) {
+      font-size: 1rem;
+    }
+  
+    .img {
+      height: 18rem;
+      width: 18rem;
+    }
+  
+    .mainContainer_left > div.buttonJoin {
+      margin: 1rem auto 0 auto; /* center button */
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .mainContainer_left > p:nth-child(1) {
+      font-size: 1.6rem;
+    }
+  
+    .img {
+      height: 14rem;
+      width: 14rem;
+    }
+  }
+  

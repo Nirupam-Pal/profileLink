@@ -25,7 +25,7 @@ export default function ViewProfilePage({ userProfile }) {
   const getUserPost = async () => {
     await dispatch(getAllPosts());
     await dispatch(getConnectionsRequest({ token: localStorage.getItem("token") }));
-    await dispatch(getMyConnectionRequests({token: localStorage.getItem("token")}));
+    await dispatch(getMyConnectionRequests({ token: localStorage.getItem("token") }));
   }
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function ViewProfilePage({ userProfile }) {
         setIsConnectionNull(false)
       }
     }
-    
+
   }, [authState.connections, authState.connectionRequest])
 
 
@@ -77,9 +77,10 @@ export default function ViewProfilePage({ userProfile }) {
 
           <div className={styles.profileContainer_details}>
 
-            <div style={{ display: "flex", gap: "0.7rem" }}>
+            <div className={styles.profileContainer_flex}>
 
               <div style={{ flex: "0.8" }}>
+
                 <div style={{ display: "flex", width: "fit-content", alignItems: "center", gap: "1.2rem" }}>
                   <h2>{userProfile.userId.name}</h2>
                   <p style={{ color: "grey" }}>@{userProfile.userId.username}</p>
@@ -94,11 +95,11 @@ export default function ViewProfilePage({ userProfile }) {
                       dispatch(sendConnectionRequest({ token: localStorage.getItem("token"), user_id: userProfile.userId._id }))
                     }} className={styles.connectBtn}>Connect</button>}
 
-                  <div onClick={async()=>{
+                  <div onClick={async () => {
                     const response = await clientServer.get(`/user/download_resume?id=${userProfile.userId._id}`);
                     window.open(`${BASE_URL}/${response.data.message}`, "_blank")
                   }}>
-                    <svg style={{width: "1.2em", cursor: "pointer"}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                    <svg style={{ width: "1.2em", cursor: "pointer" }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                     </svg>
                   </div>
@@ -109,43 +110,7 @@ export default function ViewProfilePage({ userProfile }) {
                   <p>{userProfile.bio}</p>
                 </div>
 
-                <div className={styles.workHistory}>
-                  <h4>Work History</h4>
 
-                  <div className={styles.workHistoryContainer}>
-                    {
-                      userProfile.pastWork.map((work, index) => {
-                        return (
-                          <div key={index} className={styles.workHistoryCard}>
-                            <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem" }}>
-                              {work.company} - {work.position}
-                            </p>
-                            <p>{work.years}+</p>
-                          </div>
-                        )
-                      })
-                    }
-                  </div>
-                </div>
-
-                <div className={styles.workHistory}>
-                  <h4>Education</h4>
-
-                  <div className={styles.workHistoryContainer}>
-                    {
-                      userProfile.education.map((edu, index) => {
-                        return (
-                          <div key={index} className={styles.workHistoryCard}>
-                            <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem" }}>
-                              {edu.school} 
-                            </p>
-                            <p>{edu.degree} - {edu.fieldOfStudy}</p>
-                          </div>
-                        )
-                      })
-                    }
-                  </div>
-                </div>
 
               </div>
 
@@ -162,13 +127,50 @@ export default function ViewProfilePage({ userProfile }) {
 
 
                         </div>
-                        <p className={styles.recentPostCaption} style={{fontSize: "12px"}}>{post.body}</p>
+                        <p className={styles.recentPostCaption} style={{ fontSize: "12px" }}>{post.body}</p>
                       </div>
                     </div>
                   )
                 })}
               </div>
 
+            </div>
+            <div className={styles.workHistory}>
+              <h4>Work History</h4>
+
+              <div className={styles.workHistoryContainer}>
+                {
+                  userProfile.pastWork.map((work, index) => {
+                    return (
+                      <div key={index} className={styles.workHistoryCard}>
+                        <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem" }}>
+                          {work.company} - {work.position}
+                        </p>
+                        <p>{work.years}+</p>
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            </div>
+
+            <div className={styles.workHistory}>
+              <h4>Education</h4>
+
+              <div className={styles.workHistoryContainer}>
+                {
+                  userProfile.education.map((edu, index) => {
+                    return (
+                      <div key={index} className={styles.workHistoryCard}>
+                        <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem" }}>
+                          {edu.school}
+                        </p>
+                        <p>{edu.degree} - {edu.fieldOfStudy}</p>
+                      </div>
+                    )
+                  })
+                }
+              </div>
             </div>
 
 

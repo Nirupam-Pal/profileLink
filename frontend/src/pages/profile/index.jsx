@@ -106,7 +106,7 @@ export default function Profile() {
 
             <div className={styles.profileContainer_details}>
 
-              <div style={{ display: "flex", gap: "0.7rem" }}>
+              <div className={styles.profileContainer_flex}>
 
                 <div style={{ flex: "0.8" }}>
                   <div style={{ display: "flex", flexDirection: "column", width: "fit-content", marginBottom: "1.5rem" }}>
@@ -131,64 +131,6 @@ export default function Profile() {
                     />
                   </div>
 
-                  <div className={styles.workHistory}>
-                    <h4>Work History</h4>
-
-                    <div className={styles.workHistoryContainerX}>
-                      <div className={styles.workHistoryContainer}>
-                        {
-                          userProfile.pastWork.map((work, index) => {
-                            return (
-                              <div key={index} className={styles.workHistoryCard}>
-                                <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem" }}>
-                                  {work.company} - {work.position}
-                                </p>
-                                <p>{work.years}+</p>
-                              </div>
-                            )
-                          })
-                        }
-                      </div>
-
-                      <button className={styles.addWorkButton} onClick={() => {
-                        setIsModalOpen(true)
-                      }}>Add Work</button>
-                    </div>
-                  </div>
-
-                  <div className={styles.workHistory}>
-                    <h4>Education</h4>
-
-                    <div className={styles.workHistoryContainerX}>
-                      <div className={styles.workHistoryContainer}>
-                        {
-                          userProfile.education.map((edu, index) => {
-                            return (
-                              <div key={index} className={styles.workHistoryCard}>
-                                <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem" }}>
-                                  {edu.school}
-                                </p>
-                                <p>{edu.degree} - {edu.fieldOfStudy}</p>
-                              </div>
-                            )
-                          })
-                        }
-                      </div>
-
-                      <button className={styles.addWorkButton} onClick={() => {
-                        setIsEduModalOpen(true)
-                      }}>Add Education</button>
-                    </div>
-                  </div>
-
-                  {userProfile != authState.user &&
-                    <div onClick={() => {
-                      updateProfileData();
-                    }} className={styles.updateProfileBtn}>
-                      Update Profile
-                    </div>
-                  }
-
                 </div>
 
                 <div style={{ flex: "0.2" }}>
@@ -204,14 +146,73 @@ export default function Profile() {
 
 
                           </div>
-                          <p className={styles.recentPostCaption} style={{ fontSize: "12px" }}>{post.body}</p>
+                          <p className={styles.recentPostCaption}>{post.body}</p>
                         </div>
                       </div>
                     )
                   })}
                 </div>
 
+
+
               </div>
+              <div className={styles.workHistory}>
+                <h4>Work History</h4>
+
+                <div className={styles.workHistoryContainerX}>
+                  <div className={styles.workHistoryContainer}>
+                    {
+                      userProfile.pastWork.map((work, index) => {
+                        return (
+                          <div key={index} className={styles.workHistoryCard}>
+                            <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem" }}>
+                              {work.company} - {work.position}
+                            </p>
+                            <p>{work.years}+</p>
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+
+                  <button className={styles.addWorkButton} onClick={() => {
+                    setIsModalOpen(true)
+                  }}>Add Work</button>
+                </div>
+              </div>
+
+              <div className={styles.workHistory}>
+                <h4>Education</h4>
+
+                <div className={styles.workHistoryContainerX}>
+                  <div className={styles.workHistoryContainer}>
+                    {
+                      userProfile.education.map((edu, index) => {
+                        return (
+                          <div key={index} className={styles.workHistoryCard}>
+                            <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem" }}>
+                              {edu.school}
+                            </p>
+                            <p>{edu.degree} - {edu.fieldOfStudy}</p>
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+
+                  <button className={styles.addWorkButton} onClick={() => {
+                    setIsEduModalOpen(true)
+                  }}>Add Education</button>
+                </div>
+              </div>
+
+              {userProfile != authState.user &&
+                <div onClick={() => {
+                  updateProfileData();
+                }} className={styles.updateProfileBtn}>
+                  Update Profile
+                </div>
+              }
 
 
             </div>
