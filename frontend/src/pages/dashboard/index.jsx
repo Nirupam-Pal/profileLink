@@ -241,6 +241,7 @@ export default function Dashboard() {
                   <div onClick={async () => {
                     await dispatch(postComment({ post_id: postState.postId, body: commentText }))
                     await dispatch(getAllComments({ post_id: postState.postId }))
+                    setCommentText("")
                   }} className={styles.postCommentContainer_commentBtn}>
                     <p>Comment</p>
                   </div>
