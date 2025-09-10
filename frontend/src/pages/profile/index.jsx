@@ -87,6 +87,13 @@ export default function Profile() {
     dispatch(getAboutUser({ token: localStorage.getItem("token") }))
   }
 
+  const normalizePicture = (pic) => {
+    if (pic.startsWith("http")) {
+      return pic;
+    }
+    return `${BASE_URL}${pic}`;
+  }
+
 
 
   return (
@@ -101,7 +108,8 @@ export default function Profile() {
                   updateProfilePicture(e.target.files[0])
                 }} style={{ display: "none" }} type="file" id='profilePictureUpload' />
               </label>
-              <img src={`${BASE_URL}/${userProfile.userId.profilePicture}`} alt="backdrop" />
+              {/* <img src={`${BASE_URL}/${userProfile.userId.profilePicture}`} alt="backdrop" /> */}
+              <img src={normalizePicture(userProfile.userId.profilePicture)} alt="backdrop" />
             </div>
 
             <div className={styles.profileContainer_details}>
