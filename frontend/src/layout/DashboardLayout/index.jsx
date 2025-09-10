@@ -76,7 +76,7 @@ export default function DashboardLayout({ children }) {
 
                         {authState.all_profiles_fetched && authState.all_users.map((profile) => {
                             return (
-                                <div key={profile.id}>
+                                <div key={profile._id}>
                                     <p>{profile.userId.name}</p>
                                 </div>
                             )
